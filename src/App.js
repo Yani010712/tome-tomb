@@ -1,25 +1,39 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+import SearchForm from "./components/SearchForm";
+import BookListContainer from "./components/BookListContainer";
 
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: ""
+    };
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(formData) {
+    const query = formData.title;
+
+    this.setState({
+      query: query
+    });
+  }
+
+  render() {
+    return (
+      <div className="app container">
+        <h1>Tome Tomb</h1>
+
+        <SearchForm onSearch={this.handleSearch} />
+        <BookListContainer query={this.state.query} />
+      </div>
+    );
+  }
 }
 
 export default App;
